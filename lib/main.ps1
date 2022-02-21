@@ -33,7 +33,6 @@ if ($TestGallery) {
         SourceLocation     = 'https://www.powershellgallery.com/api/v2'
         PublishLocation    = 'https://www.powershellgallery.com/api/v2/package'
         InstallationPolicy = 'Trusted'
-        Default            = $true
     }
 }
 
