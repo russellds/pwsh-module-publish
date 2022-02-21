@@ -14,7 +14,7 @@ param(
 
 Write-Host "ModuleName: $ModuleName"
 
-$modulesPath = Resolve-Path -Path './Modules'
+$modulesPath = Resolve-Path -Path './PwshModule'
 
 if ($TestGallery) {
     Write-Host 'Registering PoshTest Gallery...'
