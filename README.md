@@ -1,2 +1,5 @@
 # pwsh-module-publish
-Publish PowerShell Module via GitHub Action
+
+GitHub Action to Publish PowerShell modules to the gallery
+
+The definition of the action is in [action.yml](action.yml).

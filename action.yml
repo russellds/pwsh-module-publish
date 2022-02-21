@@ -1,0 +1,32 @@
+name: 'pwsh-module-publish'
+description: 'Publishes a PowerShell Module using PowerShellGet 2'
+inputs:
+  moduleName:
+    description: 'Name of PowerShell Module to Publish'
+    required: true
+
+  nuGetApiKey:
+    description: 'PowerShell Gallery NuGetApiKey'
+    required: true
+
+  testGallery:
+    description: 'Publish to Posh Test Gallery'
+    required: false
+
+runs:
+  using: composite
+  steps:
+  - name: Download Build Output
+    uses: actions/download-artifact@v2
+    with:
+      name: PwshModule
+
+  - if: ${{ inputs.testGallery != 0 }}
+    name: 'Publish PowerShell Module to the Posh Test Gallery'
+    run: ${{ github.action_path }}/lib/main.ps1 -ModuleName '${{ inputs.moduleName }}' -NuGetApiKey '${{ inputs.nuGetApiKey }}' -TestGallery
+    shell: pwsh
+
+  - if: ${{ inputs.testGallery == 0 }}
+    name: 'Publish PowerShell Module to the Powershell Gallery'
+    run: ${{ github.action_path }}/lib/main.ps1 -ModuleName '${{ inputs.moduleName }}' -NuGetApiKey '${{ inputs.nuGetApiKey }}'
+    shell: pwsh
