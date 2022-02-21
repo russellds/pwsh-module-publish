@@ -18,8 +18,6 @@ runs:
   steps:
   - name: Download Build Output
     uses: actions/download-artifact@v2
-    with:
-      name: Modules
 
   - if: ${{ inputs.testGallery != 0 }}
     name: 'Publish PowerShell Module to the Posh Test Gallery'
