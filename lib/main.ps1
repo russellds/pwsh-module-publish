@@ -16,6 +16,8 @@ Write-Host "ModuleName: $ModuleName"
 
 $modulesPath = Resolve-Path -Path './Modules'
 
+Get-PSRepository
+
 if ($TestGallery) {
     Write-Host 'Registering PoshTest Gallery...'
 
