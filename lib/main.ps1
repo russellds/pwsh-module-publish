@@ -16,6 +16,15 @@ Write-Host "ModuleName: $ModuleName"
 
 $modulesPath = Resolve-Path -Path './Modules'
 
+$repositories = Get-PSRepository |
+    Select-Object -ExpandProperty Name
+
+Write-Host 'PowerShell Repositories:'
+
+foreach ($repository in $repositories) {
+    Write-Host "`t$( $repository )"
+}
+
 if ($TestGallery) {
     Write-Host 'Registering PoshTest Gallery...'
 
@@ -25,16 +34,18 @@ if ($TestGallery) {
         PublishLocation    = 'https://www.poshtestgallery.com/api/v2/package/'
         InstallationPolicy = 'Trusted'
     }
-} else {
+
+    Register-PSRepository @paramRegisterPSRepository
+} elseif ($repositories -notcontains 'PSGallery') {
     Write-Host 'Registering PowerShell Gallery...'
 
     $paramRegisterPSRepository = @{
         Default = $true
         InstallationPolicy = 'Trusted'
     }
-}
 
-Register-PSRepository @paramRegisterPSRepository
+    Register-PSRepository @paramRegisterPSRepository
+}
 
 Write-Host 'Updating $env:PSModulePath...'
 
