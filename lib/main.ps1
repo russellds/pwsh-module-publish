@@ -85,6 +85,7 @@ if ($foundModules.Version -notcontains $importedModuleVersion) {
 
     $paramPublishModule = @{
         Name        = $ModuleName
+        Repository  = 'PSGallery'
         NuGetApiKey = $NuGetApiKey
     }
 
@@ -94,7 +95,7 @@ if ($foundModules.Version -notcontains $importedModuleVersion) {
 
     Publish-Module @paramPublishModule
 
-    Write-Host "$( $ModuleName ) successfully published to $( $paramRegisterPSRepository.Name )."
+    Write-Host "$( $ModuleName ) successfully published to $( $paramPublishModule.Repository )."
 } else {
     Write-Host "`nModule $( $ModuleName ) version: $( $importedModuleVersion ) - already published."
 }
