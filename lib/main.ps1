@@ -74,7 +74,14 @@ if ($importedModule.PrivateData.PSData.Prerelease) {
 Write-Host "Version of $( $ModuleName ) to be published:"
 Write-Host "`t$( $importedModuleVersion )"
 
-$foundModules = Find-Module -Name $ModuleName -Repository $paramRegisterPSRepository.Name -AllowPrerelease -AllVersions
+$paramFindModule = @{
+    Name = $ModuleName
+    Repository = $paramRegisterPSRepository.Name
+    AllowPrerelease = $true
+    AllVersions = $true
+    ErrorAction = 'SilentlyContinue'
+}
+$foundModules = Find-Module @paramFindModule
 
 Write-Host "Currently published versions of $( $ModuleName ):"
 
