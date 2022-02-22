@@ -16,8 +16,6 @@ Write-Host "ModuleName: $ModuleName"
 
 $modulesPath = Resolve-Path -Path './Modules'
 
-Get-PSRepository
-
 if ($TestGallery) {
     Write-Host 'Registering PoshTest Gallery...'
 
@@ -31,9 +29,7 @@ if ($TestGallery) {
     Write-Host 'Registering PowerShell Gallery...'
 
     $paramRegisterPSRepository = @{
-        Name               = 'PSGallery'
-        SourceLocation     = 'https://www.powershellgallery.com/api/v2'
-        PublishLocation    = 'https://www.powershellgallery.com/api/v2/package'
+        Default = $true
         InstallationPolicy = 'Trusted'
     }
 }
