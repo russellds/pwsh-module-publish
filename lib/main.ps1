@@ -45,6 +45,12 @@ if ($TestGallery) {
     }
 
     Register-PSRepository @paramRegisterPSRepository
+
+    $paramRegisterPSRepository.Name = 'PSGallery'
+} else {
+    $paramRegisterPSRepository = @{
+        Name = 'PSGallery'
+    }
 }
 
 Write-Host 'Updating $env:PSModulePath...'
@@ -85,14 +91,9 @@ if ($foundModules.Version -notcontains $importedModuleVersion) {
 
     $paramPublishModule = @{
         Name        = $ModuleName
-        Repository  = 'PSGallery'
+        Repository  = $paramRegisterPSRepository.Name
         NuGetApiKey = $NuGetApiKey
     }
-
-    if ($paramRegisterPSRepository) {
-        $paramPublishModule.Repository  = $paramRegisterPSRepository.Name
-    }
-
     Publish-Module @paramPublishModule
 
     Write-Host "$( $ModuleName ) successfully published to $( $paramPublishModule.Repository )."
