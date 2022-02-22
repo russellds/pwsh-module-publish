@@ -85,9 +85,13 @@ if ($foundModules.Version -notcontains $importedModuleVersion) {
 
     $paramPublishModule = @{
         Name        = $ModuleName
-        Repository  = $paramRegisterPSRepository.Name
         NuGetApiKey = $NuGetApiKey
     }
+
+    if ($paramRegisterPSRepository) {
+        $paramPublishModule.Repository  = $paramRegisterPSRepository.Name
+    }
+
     Publish-Module @paramPublishModule
 
     Write-Host "$( $ModuleName ) successfully published to $( $paramRegisterPSRepository.Name )."
