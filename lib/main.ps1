@@ -68,7 +68,7 @@ $importedModule = Import-Module -Name $ModuleName -Force -PassThru
 if ($importedModule.PrivateData.PSData.Prerelease) {
     $importedModuleVersion = '{0}-{1}' -f $importedModule.Version.ToString(3), $importedModule.PrivateData.PSData.Prerelease
 } else {
-    importedModuleVersion = $importedModule.Version.ToString(3)
+    $importedModuleVersion = $importedModule.Version.ToString(3)
 }
 
 Write-Host "Version of $( $ModuleName ) to be published:"
